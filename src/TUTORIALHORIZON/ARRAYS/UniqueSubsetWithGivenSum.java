@@ -4,8 +4,8 @@ import java.util.ArrayList;
 
 public class UniqueSubsetWithGivenSum {
     public static void main(String[] args) {
-        int[] input = {6,2,7,8,2,4,1,3,7,5};
-        uniqueSubsets(input, input.length - 1, 8, new ArrayList<>());
+        int[] input = {2, 3, 5, 6, 8, 10};
+        uniqueSubsets(input, input.length - 1, 10, new ArrayList<>());
 
 
     }
