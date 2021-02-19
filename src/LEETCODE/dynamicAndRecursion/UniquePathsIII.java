@@ -27,7 +27,12 @@ public class UniquePathsIII {
                 {0, 0, 2, -1}
         };
 
+        int[][] grid2 = {{1, 0, 0, 0}, {0, 0, 0, 0}, {0, 0, 0, 2}};
+        int[][] grid3 = {{0, 1}, {2, 0}};
+
         System.out.println(uniquePathsIII(grid));
+        System.out.println(uniquePathsIII(grid2));
+        System.out.println(uniquePathsIII(grid3));
 
     }
 
@@ -36,42 +41,43 @@ public class UniquePathsIII {
         int M = grid[0].length;
         boolean[][] visited = new boolean[N][M];
 
-        int obstacles = 0;
-        int holes = (M * N) - obstacles;
-        for (int i = 0; i < N; i++)
-            for (int j = 0; j < M; j++)
-                if (grid[i][j] == -1) obstacles++;
-
-        for (int i = 0; i < N; i++) {
-            for (int j = 0; j < M; j++) {
-                if (grid[i][j] == 1)
-                    return uniquePaths(grid, visited, i, j, 1, holes);
-            }
-
+        for (int row = 0; row < N; row++) {
+            for (int col = 0; col < M; col++)
+                if (grid[row][col] == 1) {
+                    uniquePaths(grid, visited, row, col);
+                    break;
+                }
         }
-
-        return 0;
+        return COUNT;
 
     }
 
-    private static int uniquePaths(int[][] grid, boolean[][] visited, int row, int col, int counts, int holes) {
+    static int COUNT = 0;
+
+    private static boolean uniquePaths(int[][] grid, boolean[][] visited, int row, int col) {
         int N = grid.length;
         int M = grid[0].length;
-        if (row < 0 || row >= N || col < 0 || col >= M || grid[row][col] == -1 || visited[row][col]) return 0;
 
-        System.out.println(counts);
-        if (grid[row][col] == 2 && counts == holes) {
-            return 1;
+        if (row < 0 || row >= N || col < 0 || col >= M || visited[row][col] || grid[row][col] == -1)
+            return false;
+
+        if (grid[row][col] == 2) {
+            COUNT++;
+            return true;
         }
 
         visited[row][col] = true;
-        counts++;
 
+        boolean right = uniquePaths(grid, visited, row, col + 1);
+        boolean left = uniquePaths(grid, visited, row, col - 1);
+        boolean up = uniquePaths(grid, visited, row - 1, col);
+        boolean down = uniquePaths(grid, visited, row + 1, col);
 
+        if (right && left && up && down) {
+            visited[row][col] = false;
+            return true;
+        }
 
-        return uniquePaths(grid, visited, row + 1, col, counts, holes)
-                + uniquePaths(grid, visited, row - 1, col, counts, holes)
-                + uniquePaths(grid, visited, row, col + 1, counts, holes)
-                + uniquePaths(grid, visited, row, col - 1, counts, holes);
+        return false;
     }
 }

@@ -39,7 +39,7 @@ public class UniqueSubsetsWithGivenSum {
             return;
         }
 
-        if (index < 0 || sum < 0) return;
+        if (sum < 0) return;
 
         for (int i = index; i < array.length; i++) {
             list.add(array[i]);
