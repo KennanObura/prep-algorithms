@@ -12,9 +12,19 @@ public class VisitFloors {
 
     private static int play(int classrooms, int rounds) {
         if (rounds < 1) return 0; // move not possible
+        
+        /*
+        Create two boolean arrays of size classroom to represent classes
+        
+        for round = 1 ... rounds
+            if round is odd
+                visit floorOne
+            otherwise
+                visit floortwo
+        */
         boolean[] floorOne = new boolean[classrooms];
         boolean[] floorTwo = new boolean[classrooms];
-        closeAllDoors(floorOne); // close all doors by setting entries falls. Not necessary in java if using primitive bool
+        closeAllDoors(floorOne); // close all doors by setting entries false. Not necessary in java if using primitive bool
         closeAllDoors(floorTwo);
 
         for (int i = 1; i <= rounds; i++) {
