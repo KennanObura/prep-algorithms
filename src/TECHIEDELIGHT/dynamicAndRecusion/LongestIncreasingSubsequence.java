@@ -9,6 +9,8 @@ public class LongestIncreasingSubsequence {
         System.out.println(longestIncreasingSubsequence(nums));
         System.out.println(longestIncreasingSubsequence(A));
 
+        System.out.println(longestIncreasingSubsequence(new int[]{10, 9, 2, 5, 3, 7, 101, 18}));
+
     }
 
 

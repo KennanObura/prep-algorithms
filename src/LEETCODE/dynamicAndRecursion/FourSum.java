@@ -32,15 +32,16 @@ import java.util.List;
 public class FourSum {
     public static void main(String[] args) {
 
-        List<List<Integer>> result =  fourSum(new int[]{1, 0, -1, 0, -2, 2}, 0);
+        List<List<Integer>> result = fourSum(new int[]{1, 0, -1, 0, -2, 2}, 0);
 
-        for(List list : result)
-            System.out.println(list);
+//        for(List list : result)
+        System.out.println(result);
 
 
     }
 
     static List<List<Integer>> result = new ArrayList<>();
+
     public static List<List<Integer>> fourSum(int[] nums, int target) {
         fourSum(nums, target, 0, new ArrayList<>(), 4, 0);
         return result;
@@ -50,8 +51,7 @@ public class FourSum {
     private static void fourSum(int[] nums, int target, int index, List<Integer> internal, int count, int sum) {
 
         if (count == 0 && sum == target) {
-            result.add(internal);
-            System.out.println(internal);
+            result.add(new ArrayList<>(internal));
             return;
         }
 

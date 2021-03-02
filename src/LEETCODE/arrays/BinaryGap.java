@@ -46,22 +46,28 @@ public class BinaryGap {
         System.out.println(binaryGap(8));
         System.out.println(binaryGap(5));
         System.out.println(binaryGap(6));
+        System.out.println(binaryGap(0));
+        System.out.println(binaryGap(1));
     }
 
     public static int binaryGap(int n) {
+
         String binary = Integer.toBinaryString(n);
 
         int N = binary.length();
-        boolean isBetween = false;
         int maxGap = 0;
-        int count = 0;
+        int start = 0;
 
-        System.out.println(binary);
-
-
-        for (int i = 0; i < N; i++) {
+//        System.out.println(binary);
 
 
+        for (int end = 0; end < N; end++) {
+
+            char ch = binary.charAt(end);
+            if(ch == '1'){
+                maxGap = Math.max(maxGap, end-start);
+                start = end;
+            }
         }
         return maxGap;
     }

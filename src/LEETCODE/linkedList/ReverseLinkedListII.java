@@ -2,6 +2,8 @@ package LEETCODE.linkedList;
 
 import LEETCODE.linkedList.Node.ListNode;
 
+import java.util.List;
+
 /**
  * 92. Reverse Linked List II
  * Medium
@@ -20,11 +22,13 @@ public class ReverseLinkedListII {
         ListNode A = new ListNode(1);
         A.next = new ListNode(2);
         A.next.next = new ListNode(3);
-        A.next.next.next = new ListNode(5);
+        A.next.next.next = new ListNode(4);
         A.next.next.next.next = new ListNode(6);
         A.next.next.next.next.next = new ListNode(7);
+        A.next.next.next.next.next.next = new ListNode(8);
+        A.next.next.next.next.next.next.next = new ListNode(10);
 
-        ListNode result = reverseBetween(A, 2, 3);
+        ListNode result = reverseBetween(A, 2, 6);
         while (result != null) {
             System.out.print(result.val + " ->");
             result = result.next;
@@ -33,33 +37,48 @@ public class ReverseLinkedListII {
     }
 
     public static ListNode reverseBetween(ListNode head, int m, int n) {
-        if (head == null || head.next == null) return head;
+        /*
+        - let cur be the current node
+                prev -> prev of cur node
+                next -> next of cur node
 
-        ListNode current = head;
+          traverse with prev & cur till m
 
-        n -=m;
-        while (current != null && m >= 0) {
-            current = current.next;
+          - copy prev in temp
+
+          - traverse till m
+                reverse
+
+          - point next of temp to prev
+         */
+
+        ListNode cur = head;
+        ListNode prev = null;
+
+        while (cur != null && m > 0) {
+            prev = cur;
+            cur = cur.next;
             m--;
-        }
-
-//        ListNode left = head;
-
-        System.out.println(n);
-        ListNode prev = null, next = null;
-        while (current != null && n >= 0) {
-            next = current.next;
-            current.next = prev;
-
-            /*
-             * Advance nodes
-             */
-            prev = current;
-            current = next;
             n--;
         }
 
+        ListNode temp = prev;
+        ListNode tail = cur;  // temp and tail will fix the list
+        ListNode next = null;
 
+        while (cur != null && cur.next != null && n > 0) {
+            next = cur.next;
+            cur.next = prev;
+            prev = cur;
+            cur = next;
+            n--;
+        }
+
+        if (temp != null)
+            temp.next = prev;
+        else head = prev;
+
+        tail.next = cur;
 
         return head;
 
