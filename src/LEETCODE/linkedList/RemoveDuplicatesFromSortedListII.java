@@ -26,7 +26,7 @@ public class RemoveDuplicatesFromSortedListII {
         A.next.next = new ListNode(1);
         A.next.next.next = new ListNode(1);
         A.next.next.next.next = new ListNode(5);
-        A.next.next.next.next.next = new ListNode(5);
+        A.next.next.next.next.next = new ListNode(6);
 
         ListNode result = deleteDuplicates(A);
         while (result != null) {
@@ -37,28 +37,28 @@ public class RemoveDuplicatesFromSortedListII {
     }
 
 
-
     private static ListNode deleteDuplicates(ListNode head) {
-//        ListNode current = head;
-//
-//        return deleteDuplicatesUtil(current);
-        return head;
+
+        ListNode current = new ListNode(-1);
+        current.next = head;
+        head = current;
+        ListNode prev = null, next = null;
+
+        while (current.next != null) {
+            next = current.next;
+            ListNode temp = next;
+
+            while (temp != null && temp.val == current.val)
+                temp = temp.next;
+
+            if (temp != next) {
+                current = temp;
+                prev.next = temp;
+            }
+            prev = current;
+            current = current.next;
+        }
+        return head.next;
     }
 
-//    private static ListNode deleteDuplicatesUtil(ListNode head) {
-//        if (head == null || head.next == null) return head;
-//
-//        if (head.val != head.next.val) {
-//            head.next = deleteDuplicatesUtil(head.next);
-//            return head;
-//        }
-//
-//        ListNode cur = head;
-//
-//
-//        while (cur.val == cur.next.val)
-//            cur = cur.next;
-//
-//        return deleteDuplicatesUtil(cur);
-//    }
 }

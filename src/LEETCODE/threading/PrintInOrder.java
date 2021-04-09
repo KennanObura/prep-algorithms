@@ -1,5 +1,7 @@
 package LEETCODE.threading;
 
+import java.util.concurrent.Semaphore;
+
 /**
  * 1114. Print in Order
  * <p>
@@ -50,24 +52,47 @@ class MyThread implements Runnable {
 
 class Foo {
 
+    Semaphore A;
+    Semaphore B;
+
     public Foo() {
+        try {
+            this.A = new Semaphore(1);
+            this.B = new Semaphore(1);
+
+            A.acquire();
+            B.acquire();
+
+        } catch (Exception e) {
+            Thread.currentThread().interrupt();
+        }
 
     }
 
     public void first(Runnable printFirst) throws InterruptedException {
 
         // printFirst.run() outputs "first". Do not change or remove this line.
+
         printFirst.run();
+        A.release();
     }
 
     public void second(Runnable printSecond) throws InterruptedException {
 
+        A.acquire();
+        A.release();
+
+
         // printSecond.run() outputs "second". Do not change or remove this line.
         printSecond.run();
+
+        B.release();
     }
 
     public void third(Runnable printThird) throws InterruptedException {
 
+        B.acquire();
+        B.release();
         // printThird.run() outputs "third". Do not change or remove this line.
         printThird.run();
     }

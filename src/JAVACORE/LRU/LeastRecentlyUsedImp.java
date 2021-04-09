@@ -23,7 +23,7 @@ public class LeastRecentlyUsedImp<T> implements LeastRecentlyUsed<T> {
     public void put(NodeLRU<T> node) {
         if (!isCapacityReached()) {
             if (contains(node.getId()))
-                update(node);
+                update(node.getId());
             else insert(node);
             System.out.println(node.getTitle() + " INSERTED");
 
@@ -37,8 +37,9 @@ public class LeastRecentlyUsedImp<T> implements LeastRecentlyUsed<T> {
 
     }
 
-    private void update(NodeLRU<T> node) {
-        nodeList.removeLast();
+    private void update(T id) {
+        NodeLRU<T> node = map.get(id);
+        nodeList.remove(node);
         nodeList.addFirst(node);
     }
 
