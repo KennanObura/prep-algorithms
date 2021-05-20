@@ -35,17 +35,18 @@ public class MinimumPartitionsBottomUp {
             sumSet += i;
 
         int[][] map = new int[N + 1][sumSet + 1];
-
-        for (int i = 1; i <= N; i++) {
-            for (int j = 1; j <= sumSet; j++) {
-
-                if (A[i - 1] > j)
-                    map[i][j] = map[i - 1][j];
-                else
-
-
-            }
-        }
+//
+//        for (int i = 1; i <= N; i++) {
+//            for (int j = 1; j <= sumSet; j++) {
+//
+//                if (A[i - 1] > j)
+//                    map[i][j] = map[i - 1][j];
+//                else
+//
+//
+//            }
+//        }
+        return sumSet;
 
     }
 
